@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Study Resource Hub</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      opacity: 0;
+      transform: translateY(-10px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+    .dropdown:hover > .dropdown-content,
+    .dropdown:focus-within > .dropdown-content {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .dropdown-content .dropdown {
+      position: relative;
+    }
+    .dropdown-content.left {
+      right: 100%;
+      left: auto;
+      top: 0;
+    }
+    .search-icon {
+      position: absolute;
+      left: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #6b7280;
+      transition: all 0.3s ease;
+    }
+    .search-input {
+      padding-left: 50px;
+    }
+    .search-input:focus + .search-icon {
+      color: #3b82f6;
+      transform: translateY(-50%) scale(1.1);
+    }
+    .card-animate {
+      transition: all 0.3s ease;
+      transform: translateY(0);
+    }
+    .card-animate:hover {
+      transform: translateY(-5px);
+    }
+    .fade-in {
+      animation: fadeIn 0.5s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .nav-item {
+      position: relative;
+    }
+    .nav-item::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -2px;
+      left: 0;
+      background-color: #3b82f6;
+      transition: width 0.3s ease;
+    }
+    .nav-item:hover::after {
+      width: 100%;
+    }
+    .pulse {
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+    .float {
+      animation: float 6s ease-in-out infinite;
+    }
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-15px); }
+      100% { transform: translateY(0px); }
+    }
+  </style>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Dropdown animations
+      const dropdowns = document.querySelectorAll('.dropdown');
+      dropdowns.forEach(dropdown => {
+        let timeout;
+        
+        dropdown.addEventListener('mouseenter', () => {
+          clearTimeout(timeout);
+          const content = dropdown.querySelector('.dropdown-content');
+          if (content) {
+            content.style.display = 'block';
+            setTimeout(() => {
+              content.style.opacity = '1';
+              content.style.transform = 'translateY(0)';
+            }, 10);
+          }
+        });
+
+        dropdown.addEventListener('mouseleave', () => {
+          const content = dropdown.querySelector('.dropdown-content');
+          if (content) {
+            content.style.opacity = '0';
+            content.style.transform = 'translateY(-10px)';
+            timeout = setTimeout(() => {
+              content.style.display = 'none';
+            }, 300);
+          }
+        });
+      });
+
+      // Search functionality with animation
+      const searchInput = document.getElementById('searchInput');
+      const resources = [
+        {
+          title: "Data Structures - Final Notes",
+          uploader: "Ali Rezaei",
+          tags: ["linked list", "trees", "exam review"]
+        },
+        {
+          title: "Operating Systems - Midterm Summary",
+          uploader: "Sara Mohammadi",
+          tags: ["scheduling", "memory management"]
+        },
+        {
+          title: "Database Systems - SQL Cheat Sheet",
+          uploader: "Mohammad Karimi",
+          tags: ["SQL", "queries", "database"]
+        },
+        {
+          title: "Algorithms - Sorting Techniques",
+          uploader: "Fatemeh Ahmadi",
+          tags: ["sorting", "algorithms", "exam review"]
+        },
+        {
+          title: "Computer Networks - Protocols Guide",
+          uploader: "Reza Moradi",
+          tags: ["TCP/IP", "HTTP", "network layers"]
+        },
+        {
+          title: "Software Engineering - UML Diagrams",
+          uploader: "Zahra Esmaili",
+          tags: ["UML", "diagrams", "design patterns"]
+        }
+      ];
+
+      const resourceContainer = document.getElementById('resourceContainer');
+
+      const renderResources = (filteredResources) => {
+        resourceContainer.innerHTML = '';
+        filteredResources.forEach((res, index) => {
+          const card = document.createElement('div');
+          card.className = 'bg-white p-4 shadow rounded border hover:shadow-lg transition card-animate fade-in';
+          card.style.animationDelay = `${index * 0.1}s`;
+          card.innerHTML = `
+            <div class="flex items-start">
+              <div class="bg-blue-100 p-3 rounded-full mr-3">
+                <i class="fas fa-book text-blue-600"></i>
+              </div>
+              <div>
+                <h4 class="font-semibold text-lg">${res.title}</h4>
+                <p class="text-sm text-gray-600">Uploaded by: ${res.uploader}</p>
+                <p class="mt-2 text-sm">Tags: ${res.tags.join(', ')}</p>
+                <a href="#" class="text-blue-500 hover:underline text-sm mt-2 inline-block">View Resource <i class="fas fa-external-link-alt ml-1 text-xs"></i></a>
+              </div>
+            </div>
+          `;
+          resourceContainer.appendChild(card);
+        });
+      };
+
+      renderResources(resources);
+
+      searchInput.addEventListener('input', (e) => {
+        const query = e.target.value.toLowerCase();
+        const filtered = resources.filter(res =>
+          res.title.toLowerCase().includes(query) ||
+          res.uploader.toLowerCase().includes(query) ||
+          res.tags.some(tag => tag.toLowerCase().includes(query))
+        );
+        renderResources(filtered);
+      });
+
+      // Scroll animation for sections
+      const animateOnScroll = () => {
+        const sections = document.querySelectorAll('section');
+        sections.forEach(section => {
+          const sectionTop = section.getBoundingClientRect().top;
+          const windowHeight = window.innerHeight;
+          
+          if (sectionTop < windowHeight * 0.75) {
+            section.style.opacity = '1';
+            section.style.transform = 'translateY(0)';
+          }
+        });
+      };
+
+      // Set initial styles for scroll animation
+      document.querySelectorAll('section').forEach((section, index) => {
+        if (index > 0) { // Skip the first section
+          section.style.opacity = '0';
+          section.style.transform = 'translateY(20px)';
+          section.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+        }
+      });
+
+      window.addEventListener('scroll', animateOnScroll);
+      animateOnScroll(); // Run once on load
+
+      // Button hover effect
+      const registerBtn = document.querySelector('a[href="#register"]');
+      registerBtn.addEventListener('mouseenter', () => {
+        registerBtn.innerHTML = `<i class="fas fa-user-plus mr-2"></i> Join Now!`;
+      });
+      registerBtn.addEventListener('mouseleave', () => {
+        registerBtn.innerHTML = `<i class="fas fa-user-plus mr-2"></i> Register`;
+      });
+
+      // SVG animation
+      const svg = document.querySelector('svg');
+      if (svg) {
+        setTimeout(() => {
+          svg.classList.add('float');
+        }, 1000);
+      }
+    });
+  </script>
+</head>
+<body class="bg-gradient-to-br from-gray-50 to-blue-100 font-sans min-h-screen relative overflow-x-hidden">
+  <nav class="bg-white shadow p-4 flex justify-between items-center sticky top-0 z-50">
+    <h1 class="text-2xl font-bold text-blue-700 flex items-center">
+      <i class="fas fa-graduation-cap mr-2 pulse"></i> Study Resource Hub
+    </h1>
+    <div class="flex items-center space-x-6">
+      <div class="relative dropdown">
+        <button class="text-blue-600 focus:outline-none flex items-center nav-item">
+          <i class="fas fa-list mr-2"></i> Categories
+        </button>
+        <div class="dropdown-content bg-white border border-gray-200 shadow-lg rounded-md mt-2 z-50 w-64">
+          <ul class="text-sm divide-y divide-gray-200">
+            <li class="px-4 py-2 hover:bg-gray-100 cursor-pointer dropdown">
+              <i class="fas fa-university mr-2 text-blue-500"></i> Shahid Bahonar University
+              <ul class="dropdown-content bg-white border border-gray-200 shadow-lg rounded-md w-56 left top-0">
+                <li class="px-4 py-2 hover:bg-gray-100 cursor-pointer dropdown">
+                  <i class="fas fa-laptop-code mr-2 text-blue-500"></i> Computer Engineering
+                  <ul class="dropdown-content bg-white border border-gray-200 shadow-lg rounded-md w-56 left top-0">
+                    <li class="px-4 py-2 hover:bg-gray-100 cursor-pointer dropdown">
+                      <i class="fas fa-code mr-2 text-blue-500"></i> Software Engineering
+                      <ul class="dropdown-content bg-white border border-gray-200 shadow-lg rounded-md w-56 left top-0">
+                        <li class="px-4 py-2 hover:bg-gray-100 cursor-pointer">
+                          <i class="fas fa-project-diagram mr-2 text-blue-500"></i> Data Structures
+                        </li>
+                        <li class="px-4 py-2 hover:bg-gray-100 cursor-pointer">
+                          <i class="fas fa-microchip mr-2 text-blue-500"></i> Operating Systems
+                        </li>
+                        <li class="px-4 py-2 hover:bg-gray-100 cursor-pointer">
+                          <i class="fas fa-database mr-2 text-blue-500"></i> Database Systems
+                        </li>
+                      </ul>
+                    </li>
+                    <li class="px-4 py-2 hover:bg-gray-100 cursor-pointer">
+                      <i class="fas fa-robot mr-2 text-blue-500"></i> AI & Robotics
+                    </li>
+                  </ul>
+                </li>
+                <li class="px-4 py-2 hover:bg-gray-100 cursor-pointer">
+                  <i class="fas fa-bolt mr-2 text-blue-500"></i> Electrical Engineering
+                </li>
+              </ul>
+            </li>
+            <li class="px-4 py-2 hover:bg-gray-100 cursor-pointer">
+              <i class="fas fa-university mr-2 text-blue-500"></i> Tehran University
+            </li>
+          </ul>
+        </div>
+      </div>
+      <a href="login.html" class="text-blue-600 flex items-center nav-item">
+        <i class="fas fa-sign-in-alt mr-2"></i> Login
+      </a>
+      <a href="register.html" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 flex items-center transition-all duration-300 hover:shadow-lg">
+        <i class="fas fa-user-plus mr-2"></i> Register
+      </a>
+    </div>
+  </nav>
+
+  <section class="bg-white py-10 px-6 shadow-md">
+    <div class="max-w-4xl mx-auto relative">
+      <div class="search-icon">
+        <i class="fas fa-search"></i>
+      </div>
+      <input type="text" id="searchInput" placeholder="Search for notes, summaries, keywords..." class="w-full p-5 text-lg border border-gray-300 rounded-full shadow-lg focus:outline-none focus:ring-4 focus:ring-blue-300 transition duration-300 search-input" />
+    </div>
+  </section>
+
+  <section class="text-center py-16 px-6 relative">
+    <!-- SVG Illustration -->
+    <div class="max-w-md mx-auto mb-8">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 300" class="w-full h-auto transition-all duration-1000">
+        <defs>
+          <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#6366f1;stop-opacity:1" />
+          </linearGradient>
+        </defs>
+        <rect x="50" y="100" width="400" height="150" rx="10" fill="url(#grad1)" opacity="0.2"/>
+        <path d="M100,100 L100,250 L450,250 L450,100" stroke="#3b82f6" stroke-width="3" fill="none"/>
+        <path d="M100,150 L450,150" stroke="#3b82f6" stroke-width="2" stroke-dasharray="5,5" fill="none"/>
+        <path d="M100,200 L450,200" stroke="#3b82f6" stroke-width="2" stroke-dasharray="5,5" fill="none"/>
+        <circle cx="150" cy="125" r="15" fill="#f59e0b"/>
+        <path d="M150,140 L150,170 L130,190" stroke="#f59e0b" stroke-width="3" fill="none"/>
+        <circle cx="250" cy="125" r="15" fill="#10b981"/>
+        <path d="M250,140 L250,170 L270,190" stroke="#10b981" stroke-width="3" fill="none"/>
+        <circle cx="350" cy="125" r="15" fill="#8b5cf6"/>
+        <path d="M350,140 L350,170 L330,190" stroke="#8b5cf6" stroke-width="3" fill="none"/>
+        <path d="M120,220 L130,230 L150,210 L170,230 L190,210 L210,230 L230,210 L250,230 L270,210 L290,230 L310,210 L330,230 L350,210 L370,230 L380,220" stroke="#3b82f6" stroke-width="3" fill="none"/>
+      </svg>
+    </div>
+    <h2 class="text-4xl font-bold mb-4 text-gray-800">Access & Discover Study Resources</h2>
+    <p class="mb-4 text-gray-600 max-w-2xl mx-auto text-lg">Designed for Computer Engineering students at Shahid Bahonar University of Kerman — explore summaries, notes, and helpful materials shared by peers.</p>
+  </section>
+
+  <section class="max-w-5xl mx-auto px-4 py-12">
+    <h3 class="text-3xl font-semibold mb-8 text-gray-800 flex items-center">
+      <i class="fas fa-book-open mr-3 text-blue-500"></i> Latest Resources
+    </h3>
+    <div id="resourceContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Cards will be injected by JS -->
+    </div>
+  </section>
+
+  <footer class="text-center p-6 bg-gray-200 text-sm text-gray-600 mt-10">
+    <div class="flex justify-center space-x-4 mb-3">
+      <a href="#" class="text-gray-600 hover:text-blue-600 transition-colors duration-300"><i class="fab fa-twitter"></i></a>
+      <a href="#" class="text-gray-600 hover:text-blue-600 transition-colors duration-300"><i class="fab fa-instagram"></i></a>
+      <a href="#" class="text-gray-600 hover:text-blue-600 transition-colors duration-300"><i class="fab fa-telegram"></i></a>
+      <a href="#" class="text-gray-600 hover:text-blue-600 transition-colors duration-300"><i class="fas fa-envelope"></i></a>
+    </div>
+    &copy; 2025 Study Resource Hub - Shahid Bahonar University of Kerman
+  </footer>
+</body>
+</html>

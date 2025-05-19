@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Register - Study Resource Hub</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    .nav-item {
+      position: relative;
+    }
+    .nav-item::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -2px;
+      left: 0;
+      background-color: #3b82f6;
+      transition: width 0.3s ease;
+    }
+    .nav-item:hover::after {
+      width: 100%;
+    }
+    .register-container {
+      background: url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center;
+      background-size: cover;
+      position: relative;
+    }
+    .register-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(255, 255, 255, 0.9);
+    }
+    .register-form {
+      position: relative;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      animation: fadeInUp 0.6s ease-out;
+    }
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .input-icon {
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #6b7280;
+      transition: all 0.3s;
+    }
+    .form-input {
+      padding-left: 45px;
+      transition: all 0.3s;
+    }
+    .form-input:focus {
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+    }
+    .form-input:focus + .input-icon {
+      color: #3b82f6;
+    }
+    .btn-hover {
+      transition: all 0.3s;
+      transform: translateY(0);
+    }
+    .btn-hover:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(59, 130, 246, 0.3);
+    }
+    .password-strength {
+      height: 4px;
+      background-color: #e5e7eb;
+      margin-top: 4px;
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .password-strength-bar {
+      height: 100%;
+      width: 0%;
+      transition: width 0.3s ease, background-color 0.3s ease;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 font-sans min-h-screen">
+  <nav class="bg-white shadow p-4 flex justify-between items-center sticky top-0 z-50">
+    <a href="index.html" class="text-2xl font-bold text-blue-700 flex items-center">
+      <i class="fas fa-graduation-cap mr-2"></i> Study Resource Hub
+    </a>
+    <div class="flex items-center space-x-6">
+      <a href="index.html" class="text-blue-600 hover:underline flex items-center nav-item">
+        <i class="fas fa-home mr-2"></i> Home
+      </a>
+      <a href="login.html" class="text-blue-600 hover:underline flex items-center nav-item">
+        <i class="fas fa-sign-in-alt mr-2"></i> Login
+      </a>
+    </div>
+  </nav>
+
+  <main class="flex items-center justify-center min-h-screen register-container py-12 px-4 sm:px-6 lg:px-8">
+    <div class="w-full max-w-md bg-white rounded-xl p-8 register-form">
+      <div class="text-center mb-8">
+        <h2 class="text-3xl font-bold text-gray-800 mb-2">Create Account</h2>
+        <p class="text-gray-600">Join our community of students and share resources</p>
+      </div>
+      
+      <form class="space-y-4">
+        <div class="grid grid-cols-2 gap-4">
+          <div class="relative">
+            <i class="fas fa-user input-icon"></i>
+            <input type="text" placeholder="First Name" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 form-input" required>
+          </div>
+          <div class="relative">
+            <input type="text" placeholder="Last Name" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 form-input" required>
+          </div>
+        </div>
+        
+        <div class="relative">
+          <i class="fas fa-envelope input-icon"></i>
+          <input type="email" placeholder="University Email" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 form-input" required>
+          <p class="text-xs text-gray-500 mt-1">Must be a valid university email address</p>
+        </div>
+        
+        <div class="relative">
+          <i class="fas fa-id-card input-icon"></i>
+          <input type="text" placeholder="Student ID" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 form-input" required>
+        </div>
+        
+        <div class="relative">
+          <i class="fas fa-lock input-icon"></i>
+          <input type="password" id="password" placeholder="Password" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 form-input" required>
+          <div class="password-strength">
+            <div id="password-strength-bar" class="password-strength-bar"></div>
+          </div>
+        </div>
+        
+        <div class="relative">
+          <i class="fas fa-lock input-icon"></i>
+          <input type="password" placeholder="Confirm Password" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 form-input" required>
+        </div>
+        
+        <div class="flex items-center">
+          <input id="terms" name="terms" type="checkbox" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded" required>
+          <label for="terms" class="ml-2 block text-sm text-gray-700">
+            I agree to the <a href="#" class="text-blue-600 hover:underline">Terms of Service</a> and <a href="#" class="text-blue-600 hover:underline">Privacy Policy</a>
+          </label>
+        </div>
+        
+        <div>
+          <button type="submit" class="w-full bg-blue-600 text-white p-4 rounded-lg font-semibold hover:bg-blue-700 transition btn-hover">
+            Create Account <i class="fas fa-user-plus ml-2"></i>
+          </button>
+        </div>
+      </form>
+      
+      <div class="mt-6 text-center">
+        <p class="text-sm text-gray-600">
+          Already have an account? 
+          <a href="login.html" class="font-medium text-blue-600 hover:text-blue-500">Sign in</a>
+        </p>
+      </div>
+    </div>
+  </main>
+
+  <footer class="text-center p-6 bg-gray-200 text-sm text-gray-600">
+    <div class="flex justify-center space-x-4 mb-3">
+      <a href="#" class="text-gray-600 hover:text-blue-600 transition-colors duration-300"><i class="fab fa-twitter"></i></a>
+      <a href="#" class="text-gray-600 hover:text-blue-600 transition-colors duration-300"><i class="fab fa-instagram"></i></a>
+      <a href="#" class="text-gray-600 hover:text-blue-600 transition-colors duration-300"><i class="fab fa-telegram"></i></a>
+      <a href="#" class="text-gray-600 hover:text-blue-600 transition-colors duration-300"><i class="fas fa-envelope"></i></a>
+    </div>
+    &copy; 2025 Study Resource Hub - Shahid Bahonar University of Kerman
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Password strength indicator
+      const passwordInput = document.getElementById('password');
+      const strengthBar = document.getElementById('password-strength-bar');
+      
+      passwordInput.addEventListener('input', () => {
+        const password = passwordInput.value;
+        let strength = 0;
+        
+        // Check for length
+        if (password.length > 7) strength += 1;
+        if (password.length > 11) strength += 1;
+        
+        // Check for character variety
+        if (password.match(/[a-z]/)) strength += 1;
+        if (password.match(/[A-Z]/)) strength += 1;
+        if (password.match(/[0-9]/)) strength += 1;
+        if (password.match(/[^a-zA-Z0-9]/)) strength += 1;
+        
+        // Update strength bar
+        const width = strength * 20;
+        let color = 'bg-red-500';
+        
+        if (strength >= 4) color = 'bg-yellow-500';
+        if (strength >= 6) color = 'bg-green-500';
+        
+        strengthBar.style.width = `${width}%`;
+        strengthBar.className = `password-strength-bar ${color}`;
+      });
+      
+      // Form submission
+      const form = document.querySelector('form');
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        // Here you would typically handle form submission to your backend
+        alert('Registration form submitted! (This is a demo)');
+      });
+    });
+  </script>
+</body>
+</html>

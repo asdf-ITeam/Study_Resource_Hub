@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login - Study Resource Hub</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    .nav-item {
+      position: relative;
+    }
+    .nav-item::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -2px;
+      left: 0;
+      background-color: #3b82f6;
+      transition: width 0.3s ease;
+    }
+    .nav-item:hover::after {
+      width: 100%;
+    }
+    .login-container {
+      background: url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center;
+      background-size: cover;
+      position: relative;
+    }
+    .login-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(255, 255, 255, 0.9);
+    }
+    .login-form {
+      position: relative;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      animation: fadeInUp 0.6s ease-out;
+    }
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .input-icon {
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #6b7280;
+      transition: all 0.3s;
+    }
+    .form-input {
+      padding-left: 45px;
+      transition: all 0.3s;
+    }
+    .form-input:focus {
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+    }
+    .form-input:focus + .input-icon {
+      color: #3b82f6;
+    }
+    .btn-hover {
+      transition: all 0.3s;
+      transform: translateY(0);
+    }
+    .btn-hover:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(59, 130, 246, 0.3);
+    }
+  </style>
+</head>
+<body class="bg-gray-50 font-sans min-h-screen">
+  <nav class="bg-white shadow p-4 flex justify-between items-center sticky top-0 z-50">
+    <a href="index.html" class="text-2xl font-bold text-blue-700 flex items-center">
+      <i class="fas fa-graduation-cap mr-2"></i> Study Resource Hub
+    </a>
+    <div class="flex items-center space-x-6">
+      <a href="index.html" class="text-blue-600 hover:underline flex items-center nav-item">
+        <i class="fas fa-home mr-2"></i> Home
+      </a>
+      <a href="register.html" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 flex items-center transition-all duration-300">
+        <i class="fas fa-user-plus mr-2"></i> Register
+      </a>
+    </div>
+  </nav>
+
+  <main class="flex items-center justify-center min-h-screen login-container py-12 px-4 sm:px-6 lg:px-8">
+    <div class="w-full max-w-md bg-white rounded-xl p-8 login-form">
+      <div class="text-center mb-8">
+        <h2 class="text-3xl font-bold text-gray-800 mb-2">Welcome Back!</h2>
+        <p class="text-gray-600">Sign in to access your study resources</p>
+      </div>
+      
+      <form class="space-y-6">
+        <div class="relative">
+          <i class="fas fa-envelope input-icon"></i>
+          <input type="email" placeholder="University Email" class="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 form-input" required>
+        </div>
+        
+        <div class="relative">
+          <i class="fas fa-lock input-icon"></i>
+          <input type="password" placeholder="Password" class="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 form-input" required>
+        </div>
+        
+        <div class="flex items-center justify-between">
+          <div class="flex items-center">
+            <input id="remember-me" name="remember-me" type="checkbox" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+            <label for="remember-me" class="ml-2 block text-sm text-gray-700">Remember me</label>
+          </div>
+          
+          <div class="text-sm">
+            <a href="#forgot-password" class="font-medium text-blue-600 hover:text-blue-500">Forgot password?</a>
+          </div>
+        </div>
+        
+        <div>
+          <button type="submit" class="w-full bg-blue-600 text-white p-4 rounded-lg font-semibold hover:bg-blue-700 transition btn-hover">
+            Sign In <i class="fas fa-sign-in-alt ml-2"></i>
+          </button>
+        </div>
+      </form>
+      
+      <div class="mt-6">
+        <div class="relative">
+          <div class="absolute inset-0 flex items-center">
+            <div class="w-full border-t border-gray-300"></div>
+          </div>
+          <div class="relative flex justify-center text-sm">
+            <span class="px-2 bg-white text-gray-500">Or continue with</span>
+          </div>
+        </div>
+        
+        <div class="mt-6 grid grid-cols-2 gap-3">
+          <a href="#" class="w-full inline-flex justify-center py-3 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">
+            <i class="fab fa-google text-red-500 mr-2"></i> Google
+          </a>
+          <a href="#" class="w-full inline-flex justify-center py-3 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">
+            <i class="fab fa-microsoft text-blue-500 mr-2"></i> Microsoft
+          </a>
+        </div>
+      </div>
+      
+      <div class="mt-6 text-center">
+        <p class="text-sm text-gray-600">
+          Don't have an account? 
+          <a href="register.html" class="font-medium text-blue-600 hover:text-blue-500">Register now</a>
+        </p>
+      </div>
+    </div>
+  </main>
+
+  <footer class="text-center p-6 bg-gray-200 text-sm text-gray-600">
+    <div class="flex justify-center space-x-4 mb-3">
+      <a href="#" class="text-gray-600 hover:text-blue-600 transition-colors duration-300"><i class="fab fa-twitter"></i></a>
+      <a href="#" class="text-gray-600 hover:text-blue-600 transition-colors duration-300"><i class="fab fa-instagram"></i></a>
+      <a href="#" class="text-gray-600 hover:text-blue-600 transition-colors duration-300"><i class="fab fa-telegram"></i></a>
+      <a href="#" class="text-gray-600 hover:text-blue-600 transition-colors duration-300"><i class="fas fa-envelope"></i></a>
+    </div>
+    &copy; 2025 Study Resource Hub - Shahid Bahonar University of Kerman
+  </footer>
+</body>
+</html>

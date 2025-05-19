@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Data Structures - Study Resource Hub</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    .nav-item {
+      position: relative;
+    }
+    .nav-item::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -2px;
+      left: 0;
+      background-color: #3b82f6;
+      transition: width 0.3s ease;
+    }
+    .nav-item:hover::after {
+      width: 100%;
+    }
+    .resource-card {
+      transition: all 0.3s ease;
+      transform: translateY(0);
+    }
+    .resource-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+    .tab-content {
+      display: none;
+    }
+    .tab-content.active {
+      display: block;
+      animation: fadeIn 0.5s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    .progress-ring__circle {
+      transition: stroke-dashoffset 0.5s ease;
+      transform: rotate(-90deg);
+      transform-origin: 50% 50%;
+    }
+    .voice-note {
+      transition: all 0.3s ease;
+    }
+    .voice-note:hover {
+      background-color: #f0f7ff;
+    }
+    .filter-btn.active {
+      background-color: #3b82f6;
+      color: white;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 font-sans">
+  <nav class="bg-white shadow p-4 flex justify-between items-center sticky top-0 z-50">
+    <a href="index.html" class="text-2xl font-bold text-blue-700 flex items-center">
+      <i class="fas fa-graduation-cap mr-2"></i> Study Resource Hub
+    </a>
+    <div class="flex items-center space-x-6">
+      <a href="index.html" class="text-blue-600 hover:underline flex items-center nav-item">
+        <i class="fas fa-home mr-2"></i> Home
+      </a>
+      <a href="login.html" class="text-blue-600 hover:underline flex items-center nav-item">
+        <i class="fas fa-sign-in-alt mr-2"></i> Login
+      </a>
+    </div>
+  </nav>
+
+  <div class="container mx-auto px-4 py-8">
+    <!-- Course Header -->
+    <div class="bg-white rounded-xl shadow-md p-6 mb-8">
+      <div class="flex flex-col md:flex-row md:items-center">
+        <div class="flex-1">
+          <div class="flex items-center mb-2">
+            <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded">CSE 203</span>
+            <span class="ml-2 text-gray-500 text-sm">Computer Engineering</span>
+          </div>
+          <h1 class="text-3xl font-bold text-gray-800 mb-2">Data Structures</h1>
+          <p class="text-gray-600 mb-4">Fall 2025 - Dr. Mohammad Hosseini</p>
+          <div class="flex flex-wrap gap-2 mb-4">
+            <span class="bg-gray-100 text-gray-800 text-xs px-3 py-1 rounded-full">Linked Lists</span>
+            <span class="bg-gray-100 text-gray-800 text-xs px-3 py-1 rounded-full">Trees</span>
+            <span class="bg-gray-100 text-gray-800 text-xs px-3 py-1 rounded-full">Graphs</span>
+            <span class="bg-gray-100 text-gray-800 text-xs px-3 py-1 rounded-full">Sorting</span>
+            <span class="bg-gray-100 text-gray-800 text-xs px-3 py-1 rounded-full">Exam Prep</span>
+          </div>
+        </div>
+        <div class="md:w-48 flex flex-col items-center">
+          <div class="relative w-24 h-24 mb-2">
+            <svg class="w-full h-full" viewBox="0 0 36 36">
+              <path
+                d="M18 2.0845
+                  a 15.9155 15.9155 0 0 1 0 31.831
+                  a 15.9155 15.9155 0 0 1 0 -31.831"
+                fill="none"
+                stroke="#e6e6e6"
+                stroke-width="3"
+              />
+              <path
+                class="progress-ring__circle"
+                d="M18 2.0845
+                  a 15.9155 15.9155 0 0 1 0 31.831
+                  a 15.9155 15.9155 0 0 1 0 -31.831"
+                fill="none"
+                stroke="#3b82f6"
+                stroke-width="3"
+                stroke-dasharray="100, 100"
+                stroke-dashoffset="25"
+              />
+            </svg>
+            <div class="absolute inset-0 flex items-center justify-center">
+              <span class="text-xl font-bold text-gray-800">75%</span>
+            </div>
+          </div>
+          <span class="text-sm text-gray-600">Course Completion</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Resource Navigation Tabs -->
+    <div class="bg-white rounded-xl shadow-md p-2 mb-6">
+      <div class="flex overflow-x-auto">
+        <button class="tab-btn px-4 py-2 font-medium text-gray-600 hover:text-blue-600 whitespace-nowrap active" data-tab="all">
+          <i class="fas fa-th mr-2"></i> All Resources
+        </button>
+        <button class="tab-btn px-4 py-2 font-medium text-gray-600 hover:text-blue-600 whitespace-nowrap" data-tab="notes">
+          <i class="fas fa-file-alt mr-2"></i> Notes
+        </button>
+        <button class="tab-btn px-4 py-2 font-medium text-gray-600 hover:text-blue-600 whitespace-nowrap" data-tab="videos">
+          <i class="fas fa-video mr-2"></i> Videos
+        </button>
+        <button class="tab-btn px-4 py-2 font-medium text-gray-600 hover:text-blue-600 whitespace-nowrap" data-tab="links">
+          <i class="fas fa-link mr-2"></i> Links
+        </button>
+        <button class="tab-btn px-4 py-2 font-medium text-gray-600 hover:text-blue-600 whitespace-nowrap" data-tab="audio">
+          <i class="fas fa-microphone mr-2"></i> Audio Notes
+        </button>
+        <button class="tab-btn px-4 py-2 font-medium text-gray-600 hover:text-blue-600 whitespace-nowrap" data-tab="images">
+          <i class="fas fa-image mr-2"></i> Diagrams
+        </button>
+      </div>
+    </div>
+
+    <!-- Filter and Search -->
+    <div class="flex flex-col md:flex-row justify-between mb-6 gap-4">
+      <div class="flex space-x-2 overflow-x-auto pb-2">
+        <button class="filter-btn px-3 py-1 text-sm bg-gray-100 rounded-full hover:bg-gray-200 active" data-filter="all">All</button>
+        <button class="filter-btn px-3 py-1 text-sm bg-gray-100 rounded-full hover:bg-gray-200" data-filter="lecture">Lecture</button>
+        <button class="filter-btn px-3 py-1 text-sm bg-gray-100 rounded-full hover:bg-gray-200" data-filter="exam">Exam Prep</button>
+        <button class="filter-btn px-3 py-1 text-sm bg-gray-100 rounded-full hover:bg-gray-200" data-filter="assignment">Assignments</button>
+        <button class="filter-btn px-3 py-1 text-sm bg-gray-100 rounded-full hover:bg-gray-200" data-filter="book">Textbook</button>
+        <button class="filter-btn px-3 py-1 text-sm bg-gray-100 rounded-full hover:bg-gray-200" data-filter="cheatsheet">Cheat Sheets</button>
+      </div>
+      <div class="relative w-full md:w-64">
+        <input type="text" placeholder="Search resources..." class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+        <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+      </div>
+    </div>
+
+    <!-- Resource Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Note Resource -->
+      <div class="resource-card bg-white rounded-xl shadow-md overflow-hidden border border-gray-100" data-type="notes" data-category="lecture">
+        <div class="p-5">
+          <div class="flex items-start">
+            <div class="bg-blue-100 p-3 rounded-lg mr-4">
+              <i class="fas fa-file-alt text-blue-600 text-xl"></i>
+            </div>
+            <div>
+              <div class="flex items-center mb-1">
+                <span class="bg-blue-100 text-blue-800 text-xs px-2 py-0.5 rounded mr-2">Lecture</span>
+                <span class="text-xs text-gray-500">Updated 2 days ago</span>
+              </div>
+              <h3 class="font-bold text-lg mb-1">Linked Lists Comprehensive Notes</h3>
+              <p class="text-gray-600 text-sm mb-3">Complete notes from Week 3 lectures with diagrams and code examples.</p>
+              <div class="flex items-center text-sm text-gray-500">
+                <i class="fas fa-user-edit mr-1"></i>
+                <span class="mr-3">Ali Rezaei</span>
+                <i class="fas fa-download mr-1"></i>
+                <span>142</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="bg-gray-50 px-5 py-3 flex justify-between items-center">
+          <div class="flex space-x-2">
+            <span class="bg-gray-200 text-gray-700 text-xs px-2 py-1 rounded">PDF</span>
+            <span class="bg-gray-200 text-gray-700 text-xs px-2 py-1 rounded">3.2 MB</span>
+          </div>
+          <div class="flex space-x-2">
+            <button class="text-blue-600 hover:text-blue-800">
+              <i class="fas fa-download"></i>
+            </button>
+            <button class="text-blue-600 hover:text-blue-800">
+              <i class="fas fa-bookmark"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Video Resource -->
+      <div class="resource-card bg-white rounded-xl shadow-md overflow-hidden border border-gray-100" data-type="videos" data-category="lecture">
+        <div class="p-5">
+          <div class="flex items-start">
+            <div class="bg-red-100 p-3 rounded-lg mr-4">
+              <i class="fas fa-video text-red-600 text-xl"></i>
+            </div>
+            <div>
+              <div class="flex items-center mb-1">
+                <span class="bg-blue-100 text-blue-800 text-xs px-2 py-0.5 rounded mr-2">Lecture</span>
+                <span class="text-xs text-gray-500">Added 1 week ago</span>
+              </div>
+              <h3 class="font-bold text-lg mb-1">Binary Trees Explained</h3>
+              <p class="text-gray-600 text-sm mb-3">YouTube tutorial covering traversal algorithms with visualizations.</p>
+              <div class="flex items-center text-sm text-gray-500">
+                <i class="fas fa-user-edit mr-1"></i>
+                <span class="mr-3">Sara Mohammadi</span>
+                <i class="fas fa-eye mr-1"></i>
+                <span>87</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="relative h-40 bg-gray-800">
+          <img src="https://i.ytimg.com/vi/dQw4w9WgXcQ/hqdefault.jpg" alt="Video thumbnail" class="w-full h-full object-cover opacity-70">
+          <div class="absolute inset-0 flex items-center justify-center">
+            <button class="bg-red-600 text-white p-3 rounded-full hover:bg-red-700 transition">
+              <i class="fas fa-play text-xl"></i>
+            </button>
+          </div>
+        </div>
+        <div class="bg-gray-50 px-5 py-3 flex justify-between items-center">
+          <div class="flex space-x-2">
+            <span class="bg-gray-200 text-gray-700 text-xs px-2 py-1 rounded">YouTube</span>
+            <span class="bg-gray-200 text-gray-700 text-xs px-2 py-1 rounded">12:45</span>
+          </div>
+          <div class="flex space-x-2">
+            <button class="text-blue-600 hover:text-blue-800">
+              <i class="fas fa-external-link-alt"></i>
+            </button>
+            <button class="text-blue-600 hover:text-blue-800">
+              <i class="fas fa-bookmark"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Link Resource -->
+      <div class="resource-card bg-white rounded-xl shadow-md overflow-hidden border border-gray-100" data-type="links" data-category="book">
+        <div class="p-5">
+          <div class="flex items-start">
+            <div class="bg-green-100 p-3 rounded-lg mr-4">
+              <i class="fas fa-link text-green-600 text-xl"></i>
+            </div>
+            <div>
+              <div class="flex items-center mb-1">
+                <span class="bg-purple-100 text-purple-800 text-xs px-2 py-0.5 rounded mr-2">Textbook</span>
+                <span class="text-xs text-gray-500">Added 3 weeks ago</span>
+              </div>
+              <h3 class="font-bold text-lg mb-1">Online Algorithm Visualizer</h3>
+              <p class="text-gray-600 text-sm mb-3">Interactive tool to visualize how sorting algorithms work step-by-step.</p>
+              <div class="flex items-center text-sm text-gray-500">
+                <i class="fas fa-user-edit mr-1"></i>
+                <span class="mr-3">Mohammad Karimi</span>
+                <i class="fas fa-external-link-alt mr-1"></i>
+                <span>203</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="bg-gray-50 px-5 py-3 flex justify-between items-center">
+          <div class="flex space-x-2">
+            <span class="bg-gray-200 text-gray-700 text-xs px-2 py-1 rounded">Website</span>
+            <span class="bg-gray-200 text-gray-700 text-xs px-2 py-1 rounded">visualgo.net</span>
+          </div>
+          <div class="flex space-x-2">
+            <button class="text-blue-600 hover:text-blue-800">
+              <i class="fas fa-external-link-alt"></i>
+            </button>
+            <button class="text-blue-600 hover:text-blue-800">
+              <i class="fas fa-bookmark"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Audio Resource -->
+      <div class="resource-card bg-white rounded-xl shadow-md overflow-hidden border border-gray-100" data-type="audio" data-category="exam">
+        <div class="p-5">
+          <div class="flex items-start">
+            <div class="bg-yellow-100 p-3 rounded-lg mr-4">
+              <i class="fas fa-microphone text-yellow-600 text-xl"></i>
+            </div>
+            <div>
+              <div class="flex items-center mb-1">
+                <span class="bg-red-100 text-red-800 text-xs px-2 py-0.5 rounded mr-2">Exam Prep</span>
+                <span class="text-xs text-gray-500">Added 5 days ago</span>
+              </div>
+              <h3 class="font-bold text-lg mb-1">Graph Algorithms Review</h3>
+              <p class="text-gray-600 text-sm mb-3">Audio summary of key concepts for the final exam.</p>
+              <div class="flex items-center text-sm text-gray-500">
+                <i class="fas fa-user-edit mr-1"></i>
+                <span class="mr-3">Fatemeh Ahmadi</span>
+                <i class="fas fa-headphones mr-1"></i>
+                <span>56</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="px-5 py-3 voice-note">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center">
+              <button class="bg-blue-100 text-blue-600 p-2 rounded-full mr-3">
+                <i class="fas fa-play text-sm"></i>
+              </button>
+              <div class="w-full bg-gray-200 rounded-full h-2.5">
+                <div class="bg-blue-600 h-2.5 rounded-full" style="width: 45%"></div>
+              </div>
+            </div>
+            <span class="text-sm text-gray-500 ml-3">8:32</span>
+          </div>
+        </div>
+        <div class="bg-gray-50 px-5 py-3 flex justify-between items-center">
+          <div class="flex space-x-2">
+            <span class="bg-gray-200 text-gray-700 text-xs px-2 py-1 rounded">MP3</span>
+            <span class="bg-gray-200 text-gray-700 text-xs px-2 py-1 rounded">5.7 MB</span>
+          </div>
+          <div class="flex space-x-2">
+            <button class="text-blue-600 hover:text-blue-800">
+              <i class="fas fa-download"></i>
+            </button>
+            <button class="text-blue-600 hover:text-blue-800">
+              <i class="fas fa-bookmark"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Image Resource -->
+      <div class="resource-card bg-white rounded-xl shadow-md overflow-hidden border border-gray-100" data-type="images" data-category="cheatsheet">
+        <div class="p-5">
+          <div class="flex items-start">
+            <div class="bg-purple-100 p-3 rounded-lg mr-4">
+              <i class="fas fa-image text-purple-600 text-xl"></i>
+            </div>
+            <div>
+              <div class="flex items-center mb-1">
+                <span class="bg-green-100 text-green-800 text-xs px-2 py-0.5 rounded mr-2">Cheat Sheet</span>
+                <span class="text-xs text-gray-500">Added 2 weeks ago</span>
+              </div>
+              <h3 class="font-bold text-lg mb-1">Big-O Complexity Chart</h3>
+              <p class="text-gray-600 text-sm mb-3">Visual reference for time complexity of common algorithms.</p>
+              <div class="flex items-center text-sm text-gray-500">
+                <i class="fas fa-user-edit mr-1"></i>
+                <span class="mr-3">Reza Moradi</span>
+                <i class="fas fa-eye mr-1"></i>
+                <span>198</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="h-48 bg-gray-100 flex items-center justify-center overflow-hidden">
+          <img src="https://miro.medium.com/v2/resize:fit:1200/1*5ZLci3SuR0zM_QlZOADv8Q.jpeg" alt="Big-O Complexity Chart" class="w-full h-full object-contain">
+        </div>
+        <div class="bg-gray-50 px-5 py-3 flex justify-between items-center">
+          <div class="flex space-x-2">
+            <span class="bg-gray-200 text-gray-700 text-xs px-2 py-1 rounded">PNG</span>
+            <span class="bg-gray-200 text-gray-700 text-xs px-2 py-1 rounded">1.1 MB</span>
+          </div>
+          <div class="flex space-x-2">
+            <button class="text-blue-600 hover:text-blue-800">
+              <i class="fas fa-download"></i>
+            </button>
+            <button class="text-blue-600 hover:text-blue-800">
+              <i class="fas fa-bookmark"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Assignment Resource -->
+      <div class="resource-card bg-white rounded-xl shadow-md overflow-hidden border border-gray-100" data-type="notes" data-category="assignment">
+        <div class="p-5">
+          <div class="flex items-start">
+            <div class="bg-blue-100 p-3 rounded-lg mr-4">
+              <i class="fas fa-file-alt text-blue-600 text-xl"></i>
+            </div>
+            <div>
+              <div class="flex items-center mb-1">
+                <span class="bg-yellow-100 text-yellow-800 text-xs px-2 py-0.5 rounded mr-2">Assignment</span>
+                <span class="text-xs text-gray-500">Updated yesterday</span>
+              </div>
+              <h3 class="font-bold text-lg mb-1">Hash Tables Solutions</h3>
+              <p class="text-gray-600 text-sm mb-3">Complete solutions for Assignment 3 with detailed explanations.</p>
+              <div class="flex items-center text-sm text-gray-500">
+                <i class="fas fa-user-edit mr-1"></i>
+                <span class="mr-3">Zahra Esmaili</span>
+                <i class="fas fa-download mr-1"></i>
+                <span>76</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="bg-gray-50 px-5 py-3 flex justify-between items-center">
+          <div class="flex space-x-2">
+            <span class="bg-gray-200 text-gray-700 text-xs px-2 py-1 rounded">PDF</span>
+            <span class="bg-gray-200 text-gray-700 text-xs px-2 py-1 rounded">2.8 MB</span>
+          </div>
+          <div class="flex space-x-2">
+            <button class="text-blue-600 hover:text-blue-800">
+              <i class="fas fa-download"></i>
+            </button>
+            <button class="text-blue-600 hover:text-blue-800">
+              <i class="fas fa-bookmark"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Upload Button -->
+    <div class="fixed bottom-6 right-6">
+      <button class="bg-blue-600 text-white p-4 rounded-full shadow-lg hover:bg-blue-700 transition transform hover:scale-110">
+        <i class="fas fa-plus text-xl"></i>
+      </button>
+    </div>
+  </div>
+
+  <footer class="text-center p-6 bg-gray-200 text-sm text-gray-600 mt-10">
+    <div class="flex justify-center space-x-4 mb-3">
+      <a href="#" class="text-gray-600 hover:text-blue-600 transition-colors duration-300"><i class="fab fa-twitter"></i></a>
+      <a href="#" class="text-gray-600 hover:text-blue-600 transition-colors duration-300"><i class="fab fa-instagram"></i></a>
+      <a href="#" class="text-gray-600 hover:text-blue-600 transition-colors duration-300"><i class="fab fa-telegram"></i></a>
+      <a href="#" class="text-gray-600 hover:text-blue-600 transition-colors duration-300"><i class="fas fa-envelope"></i></a>
+    </div>
+    &copy; 2025 Study Resource Hub - Shahid Bahonar University of Kerman
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Tab functionality
+      const tabBtns = document.querySelectorAll('.tab-btn');
+      tabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          tabBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          // In a real implementation, you would filter resources here
+        });
+      });
+
+      // Filter functionality
+      const filterBtns = document.querySelectorAll('.filter-btn');
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          filterBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          // In a real implementation, you would filter resources here
+        });
+      });
+
+      // Simulate progress ring animation
+      const circle = document.querySelector('.progress-ring__circle');
+      const radius = circle.r.baseVal.value;
+      const circumference = 2 * Math.PI * radius;
+      circle.style.strokeDasharray = circumference;
+      circle.style.strokeDashoffset = circumference - (75 / 100) * circumference;
+
+      // Audio player functionality would go here
+      // Resource filtering by type/category would go here
+      // Upload modal would go here
+    });
+  </script>
+</body>
+</html>
