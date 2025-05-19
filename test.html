@@ -1,70 +1,179 @@
-<!-- Course Page -->
-<section class="bg-white py-10 px-4 max-w-6xl mx-auto">
-  <!-- Course Header -->
-  <div class="mb-10 border-b pb-6">
-    <h1 class="text-3xl font-bold text-blue-800">Data Structures</h1>
-    <p class="text-gray-600 text-sm mt-2">Course Code: CE201 | Semester: Fall 2024</p>
-    <p class="mt-4 text-gray-700">Explore resources contributed by students and curated from external sources to help you succeed in this course.</p>
-  </div>
-
-  <!-- Search and Filter -->
-  <div class="flex items-center justify-between mb-6 flex-wrap gap-4">
-    <div class="relative flex-grow max-w-md">
-      <input type="text" placeholder="Search within Data Structures..." class="w-full p-3 border border-gray-300 rounded-full shadow focus:outline-none" />
-      <svg class="absolute top-1/2 right-3 transform -translate-y-1/2 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M10 2a8 8 0 105.292 14.293l4.707 4.707a1 1 0 001.414-1.414l-4.707-4.707A8 8 0 0010 2zM4 10a6 6 0 1112 0A6 6 0 014 10z" clip-rule="evenodd"/></svg>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Binary Trees Notes | StudyHub</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    .comment-box {
+      transition: background-color 0.2s ease;
+    }
+    .comment-box:hover {
+      background-color: #f8fafc;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 font-sans">
+  <!-- Simple Header -->
+  <header class="bg-white shadow-sm py-4 px-6 sticky top-0 z-50">
+    <div class="container mx-auto flex justify-between items-center">
+      <a href="index.html" class="text-xl font-bold text-blue-600">
+        <i class="fas fa-book mr-1"></i> StudyHub
+      </a>
+      <nav>
+        <a href="login.html" class="text-gray-600 hover:text-blue-600 ml-4">
+          <i class="fas fa-user-circle mr-1"></i> Login
+        </a>
+      </nav>
     </div>
-    <div class="space-x-2">
-      <button class="px-4 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 text-sm">All</button>
-      <button class="px-4 py-2 bg-gray-200 rounded-full text-sm">Notes</button>
-      <button class="px-4 py-2 bg-gray-200 rounded-full text-sm">Videos</button>
-      <button class="px-4 py-2 bg-gray-200 rounded-full text-sm">Links</button>
-      <button class="px-4 py-2 bg-gray-200 rounded-full text-sm">Images</button>
-      <button class="px-4 py-2 bg-gray-200 rounded-full text-sm">Audio</button>
-    </div>
-  </div>
+  </header>
 
-  <!-- Resources Grid -->
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-    <!-- Note Card -->
-    <div class="bg-white shadow border rounded p-4">
-      <h3 class="font-semibold text-lg mb-2">Midterm Summary Notes</h3>
-      <p class="text-sm text-gray-600 mb-2">Uploaded by: Nima Karimi | 2 days ago</p>
-      <p class="text-sm text-gray-500">Tags: linked lists, sorting</p>
-      <a href="#" class="text-blue-600 mt-2 inline-block hover:underline text-sm">Download PDF</a>
-    </div>
-
-    <!-- YouTube Video -->
-    <div class="bg-white shadow border rounded p-4">
-      <h3 class="font-semibold text-lg mb-2">YouTube: AVL Trees Explained</h3>
-      <iframe class="w-full h-48 rounded" src="https://www.youtube.com/embed/DmH9ZQySZr0" frameborder="0" allowfullscreen></iframe>
-    </div>
-
-    <!-- External Link -->
-    <div class="bg-white shadow border rounded p-4">
-      <h3 class="font-semibold text-lg mb-2">GeeksforGeeks - Stack DS</h3>
-      <p class="text-sm text-gray-500">A detailed article on stack implementation and applications.</p>
-      <a href="https://www.geeksforgeeks.org/stack-data-structure/" target="_blank" class="text-blue-600 hover:underline text-sm">Visit Site</a>
-    </div>
-
-    <!-- Image Resource -->
-    <div class="bg-white shadow border rounded p-4">
-      <h3 class="font-semibold text-lg mb-2">Sorting Algorithms Chart</h3>
-      <img src="https://upload.wikimedia.org/wikipedia/commons/6/6e/Sorting_algorithms.png" alt="Sorting algorithms" class="w-full rounded" />
+  <main class="container mx-auto px-4 py-8 max-w-4xl">
+    <!-- Resource Header -->
+    <div class="bg-white rounded-lg shadow-sm p-6 mb-6 border border-gray-200">
+      <div class="flex flex-col md:flex-row">
+        <div class="flex-1">
+          <div class="flex items-center mb-3">
+            <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded mr-2">Lecture Notes</span>
+            <span class="text-gray-500 text-sm">Uploaded by Ali Rezaei • 5 days ago</span>
+          </div>
+          <h1 class="text-2xl font-bold text-gray-800 mb-2">Binary Trees Study Notes</h1>
+          <p class="text-gray-600 mb-4">Complete notes on binary trees from Data Structures course (CSE 203)</p>
+          
+          <div class="flex flex-wrap gap-2 mb-4">
+            <span class="bg-gray-100 text-gray-800 text-xs px-2 py-1 rounded">Traversal</span>
+            <span class="bg-gray-100 text-gray-800 text-xs px-2 py-1 rounded">Algorithms</span>
+            <span class="bg-gray-100 text-gray-800 text-xs px-2 py-1 rounded">Exam Prep</span>
+          </div>
+        </div>
+        
+        <div class="flex flex-col space-y-2">
+          <button class="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700">
+            <i class="fas fa-download mr-1"></i> Download (3.2MB)
+          </button>
+          <button class="border border-blue-600 text-blue-600 py-2 px-4 rounded hover:bg-blue-50">
+            <i class="far fa-bookmark mr-1"></i> Save
+          </button>
+        </div>
+      </div>
     </div>
 
-    <!-- Audio Resource -->
-    <div class="bg-white shadow border rounded p-4">
-      <h3 class="font-semibold text-lg mb-2">Lecture Recording - Week 3</h3>
-      <audio controls class="w-full">
-        <source src="lecture-week3.mp3" type="audio/mp3">
-        Your browser does not support the audio element.
-      </audio>
+    <!-- Resource Content -->
+    <div class="bg-white rounded-lg shadow-sm p-6 mb-8 border border-gray-200">
+      <h2 class="text-xl font-semibold mb-4 text-gray-800">
+        <i class="fas fa-info-circle text-blue-500 mr-2"></i> About These Notes
+      </h2>
+      
+      <div class="prose max-w-none text-gray-700 mb-6">
+        <p>These notes cover all key concepts about binary trees, including different traversal methods, implementation details, and common operations. Perfect for exam preparation and assignment help.</p>
+        
+        <h3 class="font-semibold mt-4">Includes:</h3>
+        <ul class="list-disc pl-5">
+          <li>Preorder, inorder, postorder traversals</li>
+          <li>Binary search tree operations</li>
+          <li>Time complexity analysis</li>
+          <li>Practice problems with solutions</li>
+        </ul>
+      </div>
+      
+      <div class="bg-gray-100 rounded p-4 mt-4">
+        <p class="text-sm text-gray-700">
+          <i class="fas fa-lightbulb text-yellow-500 mr-2"></i>
+          <strong>Tip:</strong> These notes pair well with the video lectures available in the course materials.
+        </p>
+      </div>
     </div>
-  </div>
 
-  <!-- Upload Prompt -->
-  <div class="mt-12 text-center">
-    <p class="text-gray-600 mb-2">Have helpful resources? Share them with your peers.</p>
-    <button class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700">Upload a Resource</button>
-  </div>
-</section>
+    <!-- Comment Section -->
+    <div class="bg-white rounded-lg shadow-sm p-6 border border-gray-200">
+      <h2 class="text-xl font-semibold mb-4 text-gray-800">
+        <i class="fas fa-comments text-blue-500 mr-2"></i> Discussion
+      </h2>
+      
+      <!-- Comment Form -->
+      <div class="mb-6">
+        <textarea class="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-200" rows="3" placeholder="Add your comment..."></textarea>
+        <button class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 mt-2">
+          Post Comment
+        </button>
+      </div>
+      
+      <!-- Comments List -->
+      <div class="space-y-4">
+        <!-- Comment 1 -->
+        <div class="comment-box p-4 rounded border border-gray-200">
+          <div class="flex items-start space-x-3">
+            <div class="bg-blue-100 text-blue-800 w-8 h-8 rounded-full flex items-center justify-center">
+              SM
+            </div>
+            <div>
+              <div class="flex justify-between">
+                <h4 class="font-medium">Sara Mohammadi</h4>
+                <span class="text-xs text-gray-500">3 days ago</span>
+              </div>
+              <p class="mt-1 text-gray-700">These notes are really helpful! The traversal examples are very clear.</p>
+              <div class="flex space-x-4 mt-2">
+                <button class="text-sm text-blue-600 hover:text-blue-800">
+                  <i class="far fa-thumbs-up mr-1"></i> 5
+                </button>
+                <button class="text-sm text-gray-600 hover:text-gray-800">
+                  Reply
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Comment 2 -->
+        <div class="comment-box p-4 rounded border border-gray-200">
+          <div class="flex items-start space-x-3">
+            <div class="bg-green-100 text-green-800 w-8 h-8 rounded-full flex items-center justify-center">
+              RM
+            </div>
+            <div>
+              <div class="flex justify-between">
+                <h4 class="font-medium">Reza Moradi</h4>
+                <span class="text-xs text-gray-500">1 week ago</span>
+              </div>
+              <p class="mt-1 text-gray-700">Found a small typo on page 4 in the inorder traversal pseudocode.</p>
+              <div class="flex space-x-4 mt-2">
+                <button class="text-sm text-blue-600 hover:text-blue-800">
+                  <i class="far fa-thumbs-up mr-1"></i> 2
+                </button>
+                <button class="text-sm text-gray-600 hover:text-gray-800">
+                  Reply
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- View More -->
+        <button class="text-blue-600 hover:text-blue-800 text-sm font-medium">
+          <i class="fas fa-chevron-down mr-1"></i> View 3 more comments
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <footer class="bg-gray-100 py-6 mt-10">
+    <div class="container mx-auto px-4 text-center text-gray-600 text-sm">
+      &copy; 2025 StudyHub - Shahid Bahonar University
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Simple like button functionality
+      document.querySelectorAll('.fa-thumbs-up').forEach(icon => {
+        icon.addEventListener('click', function() {
+          this.classList.toggle('far');
+          this.classList.toggle('fas');
+        });
+      });
+    });
+  </script>
+</body>
+</html>

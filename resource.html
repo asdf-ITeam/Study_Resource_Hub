@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Binary Trees Notes - Data Structures | Study Resource Hub</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    .nav-item {
+      position: relative;
+    }
+    .nav-item::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -2px;
+      left: 0;
+      background-color: #3b82f6;
+      transition: width 0.3s ease;
+    }
+    .nav-item:hover::after {
+      width: 100%;
+    }
+    .resource-header {
+      background: linear-gradient(135deg, #f0f7ff 0%, #e1effe 100%);
+    }
+    .comment-box {
+      transition: all 0.3s ease;
+    }
+    .comment-box:hover {
+      background-color: #f8fafc;
+    }
+    .like-btn.active {
+      color: #3b82f6;
+    }
+    .reply-box {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+    .reply-box.active {
+      max-height: 200px;
+    }
+    .progress-ring__circle {
+      transition: stroke-dashoffset 0.5s ease;
+      transform: rotate(-90deg);
+      transform-origin: 50% 50%;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 font-sans">
+  <nav class="bg-white shadow p-4 flex justify-between items-center sticky top-0 z-50">
+    <a href="index.html" class="text-2xl font-bold text-blue-700 flex items-center">
+      <i class="fas fa-graduation-cap mr-2"></i> Study Resource Hub
+    </a>
+    <div class="flex items-center space-x-6">
+      <a href="index.html" class="text-blue-600 flex items-center nav-item">
+        <i class="fas fa-home mr-2"></i> Home
+      </a>
+      <a href="course.html" class="text-blue-600 flex items-center nav-item">
+        <i class="fas fa-book mr-2"></i> Courses
+      </a>
+      <a href="login.html" class="text-blue-600 flex items-center nav-item">
+        <i class="fas fa-sign-in-alt mr-2"></i> Login
+      </a>
+    </div>
+  </nav>
+
+  <div class="container mx-auto px-4 py-8">
+    <!-- Breadcrumbs -->
+    <div class="flex items-center text-sm text-gray-600 mb-6">
+      <a href="index.html" class="hover:text-blue-600">Home</a>
+      <span class="mx-2">/</span>
+      <a href="course.html" class="hover:text-blue-600">Data Structures</a>
+      <span class="mx-2">/</span>
+      <span class="text-gray-800 font-medium">Binary Trees Notes</span>
+    </div>
+
+    <!-- Resource Header -->
+    <div class="resource-header rounded-xl p-6 mb-8 border border-blue-100">
+      <div class="flex flex-col md:flex-row md:items-start">
+        <div class="flex-1">
+          <div class="flex items-center mb-3">
+            <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded mr-2">Lecture Notes</span>
+            <span class="text-gray-500 text-sm">Uploaded 5 days ago by <a href="#" class="text-blue-600 hover:underline">Ali Rezaei</a></span>
+          </div>
+          <h1 class="text-3xl font-bold text-gray-800 mb-2">Comprehensive Binary Trees Notes</h1>
+          
+          <div class="flex flex-wrap items-center gap-4 mb-4">
+            <div class="flex items-center">
+              <i class="fas fa-download text-gray-500 mr-1"></i>
+              <span class="text-sm text-gray-600">142 downloads</span>
+            </div>
+            <div class="flex items-center">
+              <i class="fas fa-eye text-gray-500 mr-1"></i>
+              <span class="text-sm text-gray-600">328 views</span>
+            </div>
+            <div class="flex items-center">
+              <i class="fas fa-star text-yellow-400 mr-1"></i>
+              <span class="text-sm text-gray-600">4.8 (24 ratings)</span>
+            </div>
+          </div>
+          
+          <div class="flex flex-wrap gap-2 mb-4">
+            <span class="bg-gray-100 text-gray-800 text-xs px-3 py-1 rounded-full">Binary Trees</span>
+            <span class="bg-gray-100 text-gray-800 text-xs px-3 py-1 rounded-full">Traversal</span>
+            <span class="bg-gray-100 text-gray-800 text-xs px-3 py-1 rounded-full">Algorithms</span>
+            <span class="bg-gray-100 text-gray-800 text-xs px-3 py-1 rounded-full">Exam Review</span>
+          </div>
+        </div>
+        
+        <div class="md:w-48 flex flex-col items-center mt-4 md:mt-0">
+          <div class="relative w-20 h-20 mb-2">
+            <!-- <svg class="w-full h-full" viewBox="0 0 36 36">
+              <path
+                d="M18 2.0845
+                  a 15.9155 15.9155 0 0 1 0 31.831
+                  a 15.9155 15.9155 0 0 1 0 -31.831"
+                fill="none"
+                stroke="#e6e6e6"
+                stroke-width="3"
+              />
+              <path
+                class="progress-ring__circle"
+                d="M18 2.0845
+                  a 15.9155 15.9155 0 0 1 0 31.831
+                  a 15.9155 15.9155 0 0 1 0 -31.831"
+                fill="none"
+                stroke="#3b82f6"
+                stroke-width="3"
+                stroke-dasharray="100, 100"
+                stroke-dashoffset="25"
+              />
+            </svg> -->
+            <div class="absolute inset-0 flex items-center justify-center">
+              <i class="fas fa-file-pdf text-2xl text-red-500"></i>
+            </div>
+          </div>
+          <button class="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition flex items-center justify-center">
+            <i class="fas fa-download mr-2"></i> Download (3.2MB)
+          </button>
+          <button class="w-full mt-2 border border-blue-600 text-blue-600 py-2 px-4 rounded-lg hover:bg-blue-50 transition flex items-center justify-center">
+            <i class="fas fa-bookmark mr-2"></i> Save
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Resource Content Section -->
+    <div class="bg-white rounded-xl shadow-md p-6 mb-8">
+      <h2 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+        <i class="fas fa-info-circle text-blue-500 mr-2"></i> About This Resource
+      </h2>
+      
+      <div class="prose max-w-none text-gray-700 mb-6">
+        <p>These comprehensive notes cover all aspects of binary trees as taught in the Data Structures course (CSE 203) at Shahid Bahonar University. The material was compiled from lectures by Dr. Hosseini during Fall 2025 semester.</p>
+        
+        <h3 class="text-lg font-semibold mt-4">Content Includes:</h3>
+        <ul class="list-disc pl-5">
+          <li>Binary tree terminology and properties</li>
+          <li>Implementation details (array vs. linked representation)</li>
+          <li>All traversal algorithms (preorder, inorder, postorder, level order)</li>
+          <li>Binary search trees operations and time complexity analysis</li>
+          <li>Practice problems with solutions</li>
+          <li>Common exam questions and how to approach them</li>
+        </ul>
+        
+        <h3 class="text-lg font-semibold mt-4">How to Use:</h3>
+        <p>These notes are particularly useful when reviewing for midterm and final exams. The highlighted sections indicate topics that frequently appear on exams. The practice problems at the end include solutions with detailed explanations.</p>
+        
+        <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mt-4">
+          <div class="flex">
+            <div class="flex-shrink-0">
+              <i class="fas fa-lightbulb text-yellow-400"></i>
+            </div>
+            <div class="ml-3">
+              <p class="text-sm text-yellow-700">
+                <strong>Pro Tip:</strong> Combine these notes with the Binary Trees video tutorials available in the course resources for best understanding.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="border-t border-gray-200 pt-4 mt-6">
+        <h3 class="text-lg font-semibold text-gray-800 mb-3">Resource Preview</h3>
+        <div class="bg-gray-100 rounded-lg p-4 flex justify-center">
+          <img src="https://mermaid.ink/img/eyJjb2RlIjoiZ3JhcGggVERcbiAgQVtCaW5hcnkgVHJlZV0gLS0-IEJbUmVwcmVzZW50YXRpb25dXG4gIEIgLS0-IEJbQXJyYXldXG4gIEIgLS0-IEJbTGlua2VkXVxuICBBIC0tPiBDW1RyYXZlcnNhbHNdXG4gIEMgLS0-IENTZVtQcmVvcmRlcl1cbiAgQyAtLT4gQ1NlW0lub3JkZXJdXG4gIEMgLS0-IENTZVtQb3N0b3JkZXJdXG4gIEMgLS0-IENTZVtMZXZlbCBPcmRlcl1cbiAgQSAtLT4gRFtPUCh0KV1cbiAgRCAtLT4gRFNlW1NlYXJjaF1cbiAgRCAtLT4gRFNlW0luc2VydF1cbiAgRCAtLT4gRFNlW0RlbGV0ZV1cbiAgRCAtLT4gRFNlW1VwZGF0ZV1cbiIsIm1lcm1haWQiOnsidGhlbWUiOiJkZWZhdWx0In0sInVwZGF0ZUVkaXRvciI6ZmFsc2V9?type=png" alt="Binary Tree Concepts Mind Map" class="max-w-full h-auto rounded border border-gray-300">
+        </div>
+        <p class="text-sm text-gray-500 mt-2 text-center">Figure: Overview of binary tree concepts covered in these notes</p>
+      </div>
+    </div>
+
+    <!-- Comment Section -->
+    <div class="bg-white rounded-xl shadow-md p-6">
+      <div class="flex justify-between items-center mb-6">
+        <h2 class="text-xl font-bold text-gray-800 flex items-center">
+          <i class="fas fa-comments text-blue-500 mr-2"></i> Discussion (14)
+        </h2>
+        <button class="text-blue-600 hover:text-blue-800 flex items-center">
+          <i class="fas fa-sort mr-1"></i> Sort by
+        </button>
+      </div>
+      
+      <!-- Comment Form -->
+      <div class="mb-8">
+        <div class="flex items-start space-x-3">
+          <img src="https://ui-avatars.com/api/?name=You&background=3b82f6&color=fff" alt="Your profile" class="w-10 h-10 rounded-full">
+          <div class="flex-1">
+            <textarea class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" rows="3" placeholder="Add to the discussion..."></textarea>
+            <div class="flex justify-between items-center mt-2">
+              <div class="flex space-x-2">
+                <button class="text-gray-500 hover:text-gray-700">
+                  <i class="fas fa-paperclip"></i>
+                </button>
+                <button class="text-gray-500 hover:text-gray-700">
+                  <i class="fas fa-code"></i>
+                </button>
+              </div>
+              <button class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
+                Post Comment
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Comments List -->
+      <div class="space-y-6">
+        <!-- Comment 1 -->
+        <div class="comment-box border border-gray-200 rounded-lg p-4">
+          <div class="flex items-start space-x-3">
+            <img src="https://ui-avatars.com/api/?name=Sara+M&background=10b981&color=fff" alt="Sara Mohammadi" class="w-10 h-10 rounded-full">
+            <div class="flex-1">
+              <div class="flex justify-between items-start">
+                <div>
+                  <h4 class="font-semibold text-gray-800">Sara Mohammadi</h4>
+                  <p class="text-xs text-gray-500">3 days ago</p>
+                </div>
+                <div class="flex space-x-2">
+                  <button class="text-gray-500 hover:text-blue-600">
+                    <i class="fas fa-reply"></i>
+                  </button>
+                  <button class="text-gray-500 hover:text-red-500">
+                    <i class="fas fa-flag"></i>
+                  </button>
+                </div>
+              </div>
+              <p class="mt-2 text-gray-700">These notes saved me during the midterm! The traversal algorithms section is especially well explained. Does anyone have similar notes for graph algorithms?</p>
+              
+              <div class="flex items-center mt-3 space-x-4">
+                <button class="like-btn flex items-center text-gray-500 hover:text-blue-600">
+                  <i class="far fa-thumbs-up mr-1"></i> 8
+                </button>
+                <button class="flex items-center text-gray-500 hover:text-gray-700">
+                  <i class="far fa-thumbs-down mr-1"></i> 0
+                </button>
+              </div>
+              
+              <!-- Replies -->
+              <div class="mt-4 pl-4 border-l-2 border-gray-200 space-y-4">
+                <!-- Reply 1 -->
+                <div class="comment-box pt-3">
+                  <div class="flex items-start space-x-3">
+                    <img src="https://ui-avatars.com/api/?name=Ali+R&background=3b82f6&color=fff" alt="Ali Rezaei" class="w-8 h-8 rounded-full">
+                    <div class="flex-1">
+                      <div class="flex justify-between items-start">
+                        <div>
+                          <h4 class="font-semibold text-gray-800 text-sm">Ali Rezaei (Uploader)</h4>
+                          <p class="text-xs text-gray-500">2 days ago</p>
+                        </div>
+                        <div class="flex space-x-2">
+                          <button class="text-gray-500 hover:text-blue-600 text-sm">
+                            <i class="fas fa-reply"></i>
+                          </button>
+                        </div>
+                      </div>
+                      <p class="mt-1 text-gray-700 text-sm">Thanks Sara! I'm working on graph algorithms notes now - should have them ready before the final exam. I'll post them in the Graph Theory section when done.</p>
+                      <div class="flex items-center mt-2 space-x-4">
+                        <button class="like-btn active flex items-center text-blue-600 text-sm">
+                          <i class="fas fa-thumbs-up mr-1"></i> 5
+                        </button>
+                        <button class="flex items-center text-gray-500 text-sm">
+                          <i class="far fa-thumbs-down mr-1"></i> 0
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- Reply Form (Hidden by default) -->
+                <div class="reply-box">
+                  <div class="pt-3">
+                    <div class="flex items-start space-x-3">
+                      <img src="https://ui-avatars.com/api/?name=You&background=3b82f6&color=fff" alt="Your profile" class="w-8 h-8 rounded-full">
+                      <div class="flex-1">
+                        <textarea class="w-full p-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500" rows="2" placeholder="Write your reply..."></textarea>
+                        <div class="flex justify-end mt-1">
+                          <button class="text-sm bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 transition">
+                            Reply
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Comment 2 -->
+        <div class="comment-box border border-gray-200 rounded-lg p-4">
+          <div class="flex items-start space-x-3">
+            <img src="https://ui-avatars.com/api/?name=Reza+M&background=8b5cf6&color=fff" alt="Reza Moradi" class="w-10 h-10 rounded-full">
+            <div class="flex-1">
+              <div class="flex justify-between items-start">
+                <div>
+                  <h4 class="font-semibold text-gray-800">Reza Moradi</h4>
+                  <p class="text-xs text-gray-500">1 week ago</p>
+                </div>
+                <div class="flex space-x-2">
+                  <button class="text-gray-500 hover:text-blue-600">
+                    <i class="fas fa-reply"></i>
+                  </button>
+                  <button class="text-gray-500 hover:text-red-500">
+                    <i class="fas fa-flag"></i>
+                  </button>
+                </div>
+              </div>
+              <p class="mt-2 text-gray-700">The deletion algorithm explanation on page 12 has a small error in the pseudocode. It should check for left child existence before right child in the two-children case.</p>
+              
+              <div class="flex items-center mt-3 space-x-4">
+                <button class="like-btn flex items-center text-gray-500 hover:text-blue-600">
+                  <i class="far fa-thumbs-up mr-1"></i> 3
+                </button>
+                <button class="flex items-center text-gray-500 hover:text-gray-700">
+                  <i class="far fa-thumbs-down mr-1"></i> 1
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Load More Comments -->
+      <div class="text-center mt-6">
+        <button class="text-blue-600 hover:text-blue-800 font-medium flex items-center justify-center mx-auto">
+          <i class="fas fa-chevron-down mr-2"></i> Load More Comments
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="text-center p-6 bg-gray-200 text-sm text-gray-600 mt-10">
+    <div class="flex justify-center space-x-4 mb-3">
+      <a href="#" class="text-gray-600 hover:text-blue-600 transition-colors duration-300"><i class="fab fa-twitter"></i></a>
+      <a href="#" class="text-gray-600 hover:text-blue-600 transition-colors duration-300"><i class="fab fa-instagram"></i></a>
+      <a href="#" class="text-gray-600 hover:text-blue-600 transition-colors duration-300"><i class="fab fa-telegram"></i></a>
+      <a href="#" class="text-gray-600 hover:text-blue-600 transition-colors duration-300"><i class="fas fa-envelope"></i></a>
+    </div>
+    &copy; 2025 Study Resource Hub - Shahid Bahonar University of Kerman
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      
+      // Like button functionality
+      document.querySelectorAll('.like-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+          this.classList.toggle('active');
+          const icon = this.querySelector('i');
+          if (this.classList.contains('active')) {
+            icon.classList.replace('far', 'fas');
+            const count = parseInt(this.textContent.trim()) + 1;
+            this.innerHTML = `<i class="fas fa-thumbs-up mr-1"></i> ${count}`;
+          } else {
+            icon.classList.replace('fas', 'far');
+            const count = parseInt(this.textContent.trim()) - 1;
+            this.innerHTML = `<i class="far fa-thumbs-up mr-1"></i> ${count}`;
+          }
+        });
+      });
+      
+      // Reply button functionality
+      document.querySelectorAll('.fa-reply').forEach(btn => {
+        btn.addEventListener('click', function() {
+          const replyBox = this.closest('.comment-box').querySelector('.reply-box');
+          replyBox.classList.toggle('active');
+        });
+      });
+      
+      // Resource preview modal would go here
+      // Comment submission would go here
+      // Sorting functionality would go here
+    });
+  </script>
+</body>
+</html>
