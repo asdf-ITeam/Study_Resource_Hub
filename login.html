@@ -78,6 +78,76 @@
       transform: translateY(-2px);
       box-shadow: 0 5px 15px rgba(59, 130, 246, 0.3);
     }
+    /* New styles for login method toggle */
+    .login-method-toggle {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+    }
+    .toggle-btn {
+      background: none;
+      border: none;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      position: relative;
+      font-weight: 500;
+      color: #6b7280;
+      transition: all 0.3s ease;
+    }
+    .toggle-btn.active {
+      color: #3b82f6;
+    }
+    .toggle-btn::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: #3b82f6;
+      transition: width 0.3s ease;
+    }
+    .toggle-btn.active::after {
+      width: 100%;
+    }
+    /* Transition for form fields */
+    .form-section {
+      transition: all 0.3s ease;
+      overflow: hidden;
+    }
+    .form-section.hidden {
+      opacity: 0;
+      max-height: 0;
+      padding-top: 0;
+      padding-bottom: 0;
+      margin: 0;
+    }
+    .form-section.visible {
+      opacity: 1;
+      max-height: 500px;
+    }
+    /* OTP send button */
+    .otp-send-btn {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: #3b82f6;
+      color: white;
+      border: none;
+      padding: 0.25rem 0.75rem;
+      border-radius: 0.25rem;
+      font-size: 0.75rem;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .otp-send-btn:hover {
+      background-color: #2563eb;
+    }
+    .otp-send-btn:disabled {
+      background-color: #9ca3af;
+      cursor: not-allowed;
+    }
   </style>
 </head>
 <body class="bg-gray-50 font-sans min-h-screen">
@@ -102,25 +172,57 @@
         <p class="text-gray-600">Sign in to access your study resources</p>
       </div>
       
+      <div class="login-method-toggle">
+        <button id="email-toggle" class="toggle-btn active" data-method="email">
+          <i class="fas fa-envelope mr-2"></i>Email
+        </button>
+        <button id="phone-toggle" class="toggle-btn" data-method="phone">
+          <i class="fas fa-phone-alt mr-2"></i>Phone
+        </button>
+      </div>
+      
       <form class="space-y-6">
-        <div class="relative">
-          <i class="fas fa-envelope input-icon"></i>
-          <input type="email" placeholder="University Email" class="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 form-input" required>
-        </div>
-        
-        <div class="relative">
-          <i class="fas fa-lock input-icon"></i>
-          <input type="password" placeholder="Password" class="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 form-input" required>
-        </div>
-        
-        <div class="flex items-center justify-between">
-          <div class="flex items-center">
-            <input id="remember-me" name="remember-me" type="checkbox" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
-            <label for="remember-me" class="ml-2 block text-sm text-gray-700">Remember me</label>
+        <!-- Email Login Section -->
+        <div id="email-section" class="form-section visible">
+          <div class="relative my-4 mx-1">
+            <i class="fas fa-envelope input-icon"></i>
+            <input type="email" placeholder="University Email" class="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 form-input" required>
           </div>
           
-          <div class="text-sm">
-            <a href="#forgot-password" class="font-medium text-blue-600 hover:text-blue-500">Forgot password?</a>
+          <div class="relative my-4 mx-1">
+            <i class="fas fa-lock input-icon"></i>
+            <input type="password" placeholder="Password" class="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 form-input" required>
+          </div>
+          
+          <div class="flex items-center justify-between">
+            <div class="flex items-center">
+              <input id="remember-me" name="remember-me" type="checkbox" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+              <label for="remember-me" class="ml-2 block text-sm text-gray-700">Remember me</label>
+            </div>
+            
+            <div class="text-sm">
+              <a href="#forgot-password" class="font-medium text-blue-600 hover:text-blue-500">Forgot password?</a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Phone Login Section -->
+        <div id="phone-section" class="form-section hidden">
+          <div class="relative my-4 mx-1">
+            <i class="fas fa-phone-alt input-icon"></i>
+            <input type="tel" id="phone-number" placeholder="Phone Number" class="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 form-input" required>
+            <button id="send-otp-btn" class="otp-send-btn">Send OTP</button>
+          </div>
+          
+          <div class="relative my-4 mx-1">
+            <i class="fas fa-key input-icon"></i>
+            <input type="text" required id="otp-code" placeholder="OTP Code" class="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 form-input" disabled>
+          </div>
+          
+          <div class="text-sm pl-2 text-gray-500">
+            
+            <i class="fas fa-envelope mr-1" style="color: #000000;"></i>
+            <p class="inline">We'll send a one-time pin to your phone</p>
           </div>
         </div>
         
@@ -130,26 +232,6 @@
           </button>
         </div>
       </form>
-      
-      <!-- <div class="mt-6">
-        <div class="relative">
-          <div class="absolute inset-0 flex items-center">
-            <div class="w-full border-t border-gray-300"></div>
-          </div>
-          <div class="relative flex justify-center text-sm">
-            <span class="px-2 bg-white text-gray-500">Or continue with</span>
-          </div>
-        </div>
-        
-        <div class="mt-6 grid grid-cols-2 gap-3">
-          <a href="#" class="w-full inline-flex justify-center py-3 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">
-            <i class="fab fa-google text-red-500 mr-2"></i> Google
-          </a>
-          <a href="#" class="w-full inline-flex justify-center py-3 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">
-            <i class="fab fa-microsoft text-blue-500 mr-2"></i> Microsoft
-          </a>
-        </div>
-      </div> -->
       
       <div class="mt-6 text-center">
         <p class="text-sm text-gray-600">
@@ -169,5 +251,88 @@
     </div>
     &copy; 2025 Study Resource Hub - Shahid Bahonar University of Kerman
   </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const emailToggle = document.getElementById('email-toggle');
+      const phoneToggle = document.getElementById('phone-toggle');
+      const emailSection = document.getElementById('email-section');
+      const phoneSection = document.getElementById('phone-section');
+      const sendOtpBtn = document.getElementById('send-otp-btn');
+      const otpInput = document.getElementById('otp-code');
+      const phoneInput = document.getElementById('phone-number');
+      otpInput.disabled = true;
+      // Toggle between email and phone login
+      function toggleLoginMethod(method) {
+        if (method === 'email') {
+          emailToggle.classList.add('active');
+          phoneToggle.classList.remove('active');
+          emailSection.classList.remove('hidden');
+          emailSection.classList.add('visible');
+          phoneSection.classList.remove('visible');
+          phoneSection.classList.add('hidden');
+        } else {
+          emailToggle.classList.remove('active');
+          phoneToggle.classList.add('active');
+          emailSection.classList.remove('visible');
+          emailSection.classList.add('hidden');
+          phoneSection.classList.remove('hidden');
+          phoneSection.classList.add('visible');
+        }
+      }
+      
+      emailToggle.addEventListener('click', () => toggleLoginMethod('email'));
+      phoneToggle.addEventListener('click', () => toggleLoginMethod('phone'));
+      
+      // Handle OTP sending
+      sendOtpBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        const phoneNumber = phoneInput.value.trim();
+        
+        if (!phoneNumber) {
+          alert('Please enter a valid phone number');
+          return;
+        }
+        otpInput.disabled = false;
+        otpInput.focus();
+        // Simulate sending OTP (in a real app, this would be an API call)
+        sendOtpBtn.disabled = true;
+        let countdown = 5;
+        const originalText = 'Sending...';
+        sendOtpBtn.textContent = `${originalText} (${countdown}s)`;
+        const interval = setInterval(() => {
+          countdown--;
+          sendOtpBtn.textContent = `${originalText} (${countdown}s)`;
+          if (countdown <= 0) {
+            clearInterval(interval);
+            sendOtpBtn.textContent = originalText;
+            sendOtpBtn.disabled = false;
+            sendOtpBtn.textContent = 'Send OTP';
+          }
+        }, 1000);
+      });
+        // sendOtpBtn.textContent = 'Sending...';
+        
+        // setTimeout(() => {
+        //   // This is just for demo - in production you would verify with your backend
+        //   sendOtpBtn.textContent = 'Sent!';
+        //   otpInput.disabled = false;
+        //   otpInput.focus();
+          
+        //   // Reset button after 30 seconds
+        //   setTimeout(() => {
+          //   }, 30000);
+          // }, 1500);
+      
+      // Enable OTP send button when phone number is entered
+      phoneInput.addEventListener('input', function() {
+        if (this.value.trim().length > 0) {
+          sendOtpBtn.disabled = false;
+        } else {
+          sendOtpBtn.disabled = true;
+        }
+      });
+    });
+  </script>
 </body>
 </html>
